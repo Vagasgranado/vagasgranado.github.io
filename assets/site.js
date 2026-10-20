@@ -42,7 +42,68 @@
     area.addEventListener("change", filtrar);
   }
 
+  // Tradução automática PT / EN / ES (Google Tradutor). A escolha fica num cookie e vale para
+  // todas as páginas do site. Se a página já está no idioma escolhido, nada externo é carregado.
+  var idiomaPagina = (document.documentElement.lang || "").slice(0, 2).toLowerCase();
+  var lerIdioma = function () {
+    var m = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/;]*\/([a-z]{2})/i);
+    return m ? m[1].toLowerCase() : "";
+  };
+  // O Google também grava esse cookie em caminhos de páginas específicas; grava-se a escolha em
+  // todos os níveis do endereço para que uma escolha antiga nunca prevaleça sobre a nova
+  var gravarIdioma = function (lang) {
+    var partes = location.pathname.split("/");
+    var caminhos = ["/"];
+    for (var i = 1, acc = ""; i < partes.length; i++) {
+      acc += "/" + partes[i];
+      caminhos.push(acc, acc + "/");
+    }
+    caminhos.forEach(function (p) {
+      var valor = "googtrans=/auto/" + lang + "; path=" + p;
+      document.cookie = valor;
+      if (/\./.test(location.hostname)) document.cookie = valor + "; domain=" + location.hostname;
+    });
+  };
+  var escolhido = lerIdioma();
+  var ativo = escolhido || idiomaPagina || "pt";
+  Array.prototype.forEach.call(document.querySelectorAll("[data-idioma]"), function (b) {
+    var sim = b.getAttribute("data-idioma") === ativo;
+    b.setAttribute("aria-current", String(sim));
+    // o botão do topo mostra a bandeira e a sigla do idioma em uso
+    var sel = document.querySelector(".idioma-sel");
+    if (sim && sel) sel.innerHTML = b.querySelector("svg").outerHTML + b.getAttribute("data-sigla");
+  });
+  var botaoIdioma = document.querySelector(".idioma-atual");
+  var menuIdioma = document.getElementById("idioma-menu");
+  var abrirMenu = function (abrir) {
+    if (!botaoIdioma || !menuIdioma) return;
+    menuIdioma.hidden = !abrir;
+    botaoIdioma.setAttribute("aria-expanded", String(abrir));
+  };
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") abrirMenu(false);
+  });
+  if (escolhido && escolhido !== idiomaPagina) {
+    window.iniciarTradutor = function () {
+      new google.translate.TranslateElement({ pageLanguage: "auto", includedLanguages: "pt,en,es", autoDisplay: false }, "tradutor");
+    };
+    var s = document.createElement("script");
+    s.src = "https://translate.google.com/translate_a/element.js?cb=iniciarTradutor";
+    document.head.appendChild(s);
+  }
+
   document.addEventListener("click", function (e) {
+    if (e.target.closest(".idioma-atual")) return abrirMenu(menuIdioma.hidden);
+    if (!e.target.closest(".idioma-menu")) abrirMenu(false);
+    var bi = e.target.closest("[data-idioma]");
+    if (bi) {
+      abrirMenu(false);
+      var lang = bi.getAttribute("data-idioma");
+      if (lang === ativo) return;
+      gravarIdioma(lang);
+      location.reload();
+      return;
+    }
     var b = e.target.closest("[data-copiar]");
     if (!b) return;
     // Copia o endereço em que a página está aberta: funciona em qualquer hospedagem, mesmo que o

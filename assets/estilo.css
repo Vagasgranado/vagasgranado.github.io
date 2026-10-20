@@ -35,15 +35,35 @@ h1, h2, h3 { line-height: 1.25; }
 
 /* topo */
 .topo { background: var(--azul); color: #fff; border-bottom: 3px solid #b8975a; }
-.topo-inner { display: flex; align-items: center; min-height: 64px; }
-.marca { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; }
-.marca-ic { width: 30px; height: 30px; color: #c9a96b; }
-.marca strong { display: block; font-family: var(--serif); font-size: 19px; letter-spacing: .01em; }
-.marca small { display: block; font-size: 12px; opacity: .72; line-height: 1.2; }
+.topo-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 50px; padding-top: 6px; padding-bottom: 6px; }
+/* seletor de idioma: globo + bandeira atual, abre a lista de idiomas */
+.idiomas-site { position: relative; flex-shrink: 0; }
+.idioma-atual { display: inline-flex; align-items: center; gap: 5px; background: none; border: 1px solid rgba(255,255,255,.22); border-radius: 99px; color: rgba(255,255,255,.88); font: inherit; font-size: 11.5px; font-weight: 500; letter-spacing: .06em; padding: 3px 8px 3px 7px; cursor: pointer; }
+.idioma-atual:hover, .idioma-atual[aria-expanded="true"] { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.4); }
+.idioma-atual:focus-visible, .idioma-menu button:focus-visible { outline: 2px solid #c9a96b; outline-offset: 2px; }
+.idioma-globo { width: 14px; height: 14px; color: #c9a96b; opacity: .9; }
+.idioma-sel { display: inline-flex; align-items: center; gap: 5px; }
+.idioma-seta { width: 9px; height: 9px; opacity: .7; transition: transform .15s; }
+.idioma-atual[aria-expanded="true"] .idioma-seta { transform: rotate(180deg); }
+.idiomas-site .bandeira { width: 16px; height: 11px; border-radius: 1.5px; box-shadow: 0 0 0 .5px rgba(0,0,0,.25); flex-shrink: 0; }
+.idioma-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; list-style: none; margin: 0; padding: 4px; min-width: 150px; background: #fff; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.05); }
+.idioma-menu button { display: flex; align-items: center; gap: 8px; width: 100%; background: none; border: 0; border-radius: 5px; padding: 7px 9px; font: inherit; font-size: 13px; color: var(--texto, #1d1d1b); text-align: left; cursor: pointer; }
+.idioma-menu button:hover { background: #f1efe8; }
+.idioma-menu button[aria-current="true"] { font-weight: 700; color: var(--azul); }
+.idioma-menu button[aria-current="true"]::after { content: "✓"; margin-left: auto; color: var(--azul); }
+/* esconde a barra do Google Tradutor, que empurraria a página para baixo */
+body { top: 0 !important; }
+.skiptranslate iframe, iframe.goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame, .goog-te-spinner-pos { display: none !important; }
+.email-cand .fixo { margin: 0 .25em; } /* e-mail e assunto nunca são traduzidos; a margem mantém os espaços */
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+.marca { display: flex; align-items: center; gap: 8px; min-width: 0; color: #fff; text-decoration: none; }
+.marca-ic { width: 24px; height: 24px; color: #c9a96b; }
+.marca strong { display: block; font-family: var(--serif); font-size: 16px; letter-spacing: .01em; }
+.marca small { display: block; font-size: 11px; opacity: .72; line-height: 1.2; }
 /* logo da empresa: fundo claro para qualquer cor de logo ficar legível no topo verde */
-.marca-logo { display: inline-flex; align-items: center; background: #fff; border-radius: 8px; padding: 6px 12px; }
-.marca-logo img { display: block; height: 34px; width: auto; max-width: 200px; object-fit: contain; }
-.marca-texto { font-family: var(--serif); font-size: 19px; padding-left: 12px; border-left: 1px solid rgba(255,255,255,.35); }
+.marca-logo { display: inline-flex; align-items: center; }
+.marca-logo img { display: block; height: 30px; width: auto; max-width: 200px; object-fit: contain; }
+.marca-texto { font-family: var(--serif); font-size: 15px; white-space: nowrap; padding-left: 10px; border-left: 1px solid rgba(255,255,255,.35); }
 
 /* faixas */
 .faixa { font-size: 14.5px; padding: 10px 0; }
@@ -99,7 +119,7 @@ h1, h2, h3 { line-height: 1.25; }
 .vazio { text-align: center; color: var(--suave); padding: 40px 0; }
 
 /* página da vaga */
-.cabecalho-vaga { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%); color: #fff; padding: 20px 0 32px; }
+.cabecalho-vaga { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-2) 100%); color: #fff; padding: 16px 0 26px; }
 .voltar { display: inline-flex; align-items: center; gap: 4px; color: #e7e0cf; text-decoration: none; font-size: 14px; margin-bottom: 16px; }
 .voltar:hover { color: #fff; }
 .cabecalho-vaga h1 { font-family: var(--serif); font-size: clamp(28px, 6vw, 42px); margin: 14px 0 10px; }
@@ -181,7 +201,7 @@ h1, h2, h3 { line-height: 1.25; }
 @media print { .topo, .lateral .compartilhar, .barra-movel, .rodape { display: none; } }
 
 /* lista de vagas (estilo página de carreiras) */
-.titulo-inicio { font-family: var(--serif); color: var(--azul); font-size: clamp(28px, 5vw, 38px); margin: 36px 0 18px; }
+.titulo-inicio { font-family: var(--serif); color: var(--azul); font-size: clamp(26px, 4.5vw, 34px); margin: 24px 0 14px; }
 .titulo-secao { font-size: 15px; font-weight: 700; letter-spacing: .02em; margin: 28px 0 14px; color: var(--texto); }
 .vagas .contador { margin: 0 0 8px; font-size: 13.5px; }
 .vagas .filtros { margin: 0 0 18px; }
