@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vagasgranado.github.io/sitemap.xml
