@@ -40,7 +40,7 @@ h1, h2, h3 { line-height: 1.25; font-weight: 600; letter-spacing: -.01em; }
 .topo { background: var(--verde); color: #fff; }
 .topo-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 68px; }
 .marca { display: flex; align-items: center; gap: 14px; min-width: 0; color: #fff; text-decoration: none; }
-.logo { display: block; height: 35px; width: auto; }
+.logo { display: block; height: 40px; width: auto; }
 .marca-texto { font-size: 14px; font-weight: 500; color: rgba(255,255,255,.85); white-space: nowrap; padding-left: 14px; border-left: 1px solid rgba(189,165,95,.45); line-height: 28px; }
 .marca-logo { display: inline-flex; align-items: center; }
 .marca-logo img { display: block; height: 30px; width: auto; max-width: 200px; object-fit: contain; }
@@ -200,7 +200,7 @@ body { top: 0 !important; }
 @media (max-width: 959px) { body:has(.barra-movel) .rodape { padding-bottom: 100px; } }
 
 @media (max-width: 480px) {
-  .logo { height: 31px; }
+  .logo { height: 32px; }
   .marca { gap: 10px; }
   .marca-texto { padding-left: 10px; font-size: 13px; }
   .linha-vaga { padding: 16px; }
