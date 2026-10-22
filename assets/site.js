@@ -87,7 +87,8 @@
     b.setAttribute("aria-current", String(sim));
     // o botão do topo mostra a bandeira e a sigla do idioma em uso
     var sel = document.querySelector(".idioma-sel");
-    if (sim && sel) sel.innerHTML = b.querySelector(".bandeiras").innerHTML + b.getAttribute("data-sigla");
+    var flags = b.querySelector(".bandeiras");
+    if (sim && sel && flags) sel.innerHTML = flags.innerHTML + b.getAttribute("data-sigla");
   });
   var botaoIdioma = document.querySelector(".idioma-atual");
   var menuIdioma = document.getElementById("idioma-menu");

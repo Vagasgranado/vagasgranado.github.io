@@ -15,26 +15,28 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Granado — Vagas">
 <meta name="twitter:description" content="Granado — Vagas">
-<meta name="theme-color" content="#0B4A3C">
+<meta name="theme-color" content="#005339">
 <link rel="icon" href="assets/icone.svg" type="image/svg+xml">
+<link rel="preload" href="assets/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/estilo.css">
 </head>
 <body>
-<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<a class="pular" href="#conteudo"><span class="notranslate" translate="no" data-t="pular">Pular para o conteúdo</span></a>
 <header class="topo">
   <div class="container topo-inner">
     <a class="marca" href="index.html">
-      <svg class="marca-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
-      <span><strong class="notranslate" translate="no">Granado</strong><small>Vagas</small></span>
+      <span class="logo notranslate" translate="no"><span class="logo-nome">Granado</span><span class="logo-cidade">Rio de Janeiro</span></span><span class="marca-texto">Vagas</span>
     </a>
-    <nav class="idiomas-site notranslate" translate="no" aria-label="Idioma / Language / Idioma">
-      <button type="button" class="idioma-atual" aria-haspopup="true" aria-expanded="false" aria-controls="idioma-menu" title="Idioma / Language / Idioma">
+    <nav class="idiomas-site notranslate" translate="no" aria-label="Idioma / Language / Langue">
+      <button type="button" class="idioma-atual" aria-haspopup="true" aria-expanded="false" aria-controls="idioma-menu" title="Idioma / Language / Langue">
         <svg class="idioma-globo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span class="idioma-sel"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#009c3b"/><path d="M15 2.5 27 10 15 17.5 3 10z" fill="#ffdf00"/><circle cx="15" cy="10" r="4.3" fill="#002776"/></svg>PT</span><svg class="idioma-seta" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <ul class="idioma-menu" id="idioma-menu" hidden>
-        <li><button type="button" data-idioma="pt" data-sigla="PT" lang="pt"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#009c3b"/><path d="M15 2.5 27 10 15 17.5 3 10z" fill="#ffdf00"/><circle cx="15" cy="10" r="4.3" fill="#002776"/></svg><span>Português</span></button></li>
-        <li><button type="button" data-idioma="en" data-sigla="EN" lang="en"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#012169"/><path d="M0 0 30 20M30 0 0 20" stroke="#fff" stroke-width="4"/><path d="M0 0 30 20M30 0 0 20" stroke="#c8102e" stroke-width="1.6"/><path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/><path d="M15 0v20M0 10h30" stroke="#c8102e" stroke-width="3.4"/></svg><span>English</span></button></li>
-        <li><button type="button" data-idioma="es" data-sigla="ES" lang="es"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#aa151b"/><rect y="5" width="30" height="10" fill="#f1bf00"/></svg><span>Español</span></button></li>
+        <li><button type="button" data-idioma="pt" data-sigla="PT" lang="pt"><span class="bandeiras"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#009c3b"/><path d="M15 2.5 27 10 15 17.5 3 10z" fill="#ffdf00"/><circle cx="15" cy="10" r="4.3" fill="#002776"/></svg></span><span>Português</span></button></li>
+        <li><button type="button" data-idioma="en" data-sigla="EN" lang="en"><span class="bandeiras"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><path d="M0 1.54h30M0 4.62h30M0 7.69h30M0 10.77h30M0 13.85h30M0 16.92h30M0 20h30" stroke="#b22234" stroke-width="1.54"/><rect width="13" height="10.77" fill="#3c3b6e"/></svg><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#012169"/><path d="M0 0 30 20M30 0 0 20" stroke="#fff" stroke-width="4"/><path d="M0 0 30 20M30 0 0 20" stroke="#c8102e" stroke-width="1.6"/><path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/><path d="M15 0v20M0 10h30" stroke="#c8102e" stroke-width="3.4"/></svg></span><span>English (US / UK)</span></button></li>
+        <li><button type="button" data-idioma="es" data-sigla="ES" lang="es"><span class="bandeiras"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#aa151b"/><rect y="5" width="30" height="10" fill="#f1bf00"/></svg></span><span>Español</span></button></li>
+        <li><button type="button" data-idioma="fr" data-sigla="FR" lang="fr"><span class="bandeiras"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect width="10" height="20" fill="#002654"/><rect x="20" width="10" height="20" fill="#ce1126"/></svg></span><span>Français</span></button></li>
+        <li><button type="button" data-idioma="it" data-sigla="IT" lang="it"><span class="bandeiras"><svg class="bandeira" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect width="10" height="20" fill="#009246"/><rect x="20" width="10" height="20" fill="#ce2b37"/></svg></span><span>Italiano</span></button></li>
       </ul>
     </nav>
   </div>
@@ -43,55 +45,56 @@
 <main id="conteudo">
 
 <section class="container vagas">
-  <h1 class="titulo-inicio">Vagas</h1>
+  <h1 class="titulo-inicio"><span class="notranslate" translate="no" data-t="inicioTitulo">Vagas</span></h1>
   <form class="filtros" role="search" onsubmit="return false">
-    <label class="campo campo-busca"><span>Busca de vagas</span><input type="search" id="f-busca" placeholder="Digite o nome da vaga"></label>
-    <label class="campo"><span>País</span><select id="f-pais"><option value="">Todos</option><option value="España">España</option><option value="France">France</option><option value="Paris">Paris</option><option value="Portugal">Portugal</option><option value="UK">UK</option></select></label>
-    <label class="campo"><span>Área da vaga</span><select id="f-area"><option value="">Todas</option></select></label>
+    <label class="campo campo-busca"><span class="notranslate" translate="no" data-t="busca">Busca de vagas</span><input type="search" id="f-busca" placeholder="Digite o nome da vaga" data-t-ph="buscaPh"></label>
+    <label class="campo"><span class="notranslate" translate="no" data-t="pais">País</span><select id="f-pais"><option value="" data-t="todos">Todos</option><option value="España">España</option><option value="France">France</option><option value="Paris">Paris</option><option value="Portugal">Portugal</option><option value="UK">UK</option></select></label>
+    <label class="campo"><span class="notranslate" translate="no" data-t="areaVaga">Área da vaga</span><select id="f-area"><option value="" data-t="todasAreas">Todas</option></select></label>
   </form>
-  <p class="contador" aria-live="polite"><span id="total">6</span> vagas</p>
+  <p class="contador" aria-live="polite"><span id="total">6</span> <span class="notranslate" translate="no" data-t="vagas">vagas</span></p>
   <ul class="lista-vagas" id="lista">
 <li class="linha-vaga" data-prazo="" data-pais="France" data-area="" data-busca="Chef d’équipe/Team Leader | Parfumerie et Beauté St Honoré France">
   <a class="lv-titulo" href="jobs/ynqnsq/index.html">Chef d’équipe/Team Leader | Parfumerie et Beauté</a>
-  <span class="lv-local">St Honoré - France</span>
-  <span class="lv-tipo"></span>
+  <span class="lv-meta"><span class="lv-local"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>St Honoré, France</span></span>
+  <svg class="lv-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
 </li>
 <li class="linha-vaga" data-prazo="" data-pais="España" data-area="" data-busca="Dependiente/a de Tienda (El Corte Inglés)  | Luxury Fragrance &amp; Beauty (Las Palmas) Las Palmas España">
   <a class="lv-titulo" href="jobs/gzc3fr/index.html">Dependiente/a de Tienda (El Corte Inglés)  | Luxury Fragrance &amp; Beauty (Las Palmas)</a>
-  <span class="lv-local">Las Palmas - España</span>
-  <span class="lv-tipo"></span>
+  <span class="lv-meta"><span class="lv-local"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Las Palmas, España</span></span>
+  <svg class="lv-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
 </li>
 <li class="linha-vaga" data-prazo="" data-pais="España" data-area="" data-busca="Dependiente/a de Tienda |  Luxury Fragrance &amp; Beauty (Madrid) Madrid España">
   <a class="lv-titulo" href="jobs/8fgz28/index.html">Dependiente/a de Tienda |  Luxury Fragrance &amp; Beauty (Madrid)</a>
-  <span class="lv-local">Madrid - España</span>
-  <span class="lv-tipo"></span>
+  <span class="lv-meta"><span class="lv-local"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Madrid, España</span></span>
+  <svg class="lv-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
 </li>
 <li class="linha-vaga" data-prazo="" data-pais="Portugal" data-area="" data-busca="Vendedor(a) de Beleza | Fragrância &amp; Luxo Lisboa Portugal">
   <a class="lv-titulo" href="jobs/tck5m3/index.html">Vendedor(a) de Beleza | Fragrância &amp; Luxo</a>
-  <span class="lv-local">Lisboa - Portugal</span>
-  <span class="lv-tipo"></span>
+  <span class="lv-meta"><span class="lv-local"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Lisboa, Portugal</span></span>
+  <svg class="lv-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
 </li>
 <li class="linha-vaga" data-prazo="" data-pais="Paris" data-area="" data-busca="Responsable de Boutique/Store Manager | Parfumerie et Beauté Le Marais Paris">
   <a class="lv-titulo" href="jobs/zjcvb2/index.html">Responsable de Boutique/Store Manager | Parfumerie et Beauté</a>
-  <span class="lv-local">Le Marais - Paris</span>
-  <span class="lv-tipo"></span>
+  <span class="lv-meta"><span class="lv-local"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Le Marais, Paris</span></span>
+  <svg class="lv-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
 </li>
 <li class="linha-vaga" data-prazo="" data-pais="UK" data-area="" data-busca="Sales Associate  | Luxury Fragrance &amp; Beauty (Covent Garden and King&#39;s Road) London UK">
   <a class="lv-titulo" href="jobs/ph4cj7/index.html">Sales Associate  | Luxury Fragrance &amp; Beauty (Covent Garden and King&#39;s Road)</a>
-  <span class="lv-local">London - UK</span>
-  <span class="lv-tipo"></span>
+  <span class="lv-meta"><span class="lv-local"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>London, UK</span></span>
+  <svg class="lv-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
 </li>
   </ul>
-  <p class="vazio" id="vazio" hidden>Nenhuma vaga encontrada com esses filtros.</p>
+  <p class="vazio" id="vazio" hidden><span class="notranslate" translate="no" data-t="semFiltro">Nenhuma vaga encontrada com esses filtros.</span></p>
 </section>
 
 </main>
 <footer class="rodape">
   <div class="container">
-    <p>© 2026 Granado</p>
-    
+    <p class="privacidade"><strong><span class="notranslate" translate="no" data-t="privTitulo">Privacidade</span></strong> <span class="notranslate" translate="no" data-t="privTexto">Este site não usa cookies de rastreamento nem coleta dados pessoais. Os currículos enviados por e-mail são usados somente para os processos seletivos da Granado. A tradução automática da página, quando escolhida, usa o Google Tradutor.</span> <span class="notranslate" translate="no" data-t="privContato">Dúvidas sobre seus dados:</span> <a class="notranslate" translate="no" href="mailto:joinus@granado.com.br">joinus@granado.com.br</a></p>
+    <p class="direitos">© 2026 Granado</p>
   </div>
 </footer>
+<script src="assets/textos.js" defer></script>
 <script src="assets/site.js" defer></script>
 </body>
 </html>
