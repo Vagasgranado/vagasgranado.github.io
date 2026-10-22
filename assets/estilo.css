@@ -1,8 +1,7 @@
 /* Fontes hospedadas no próprio site (nenhum dado do visitante vai para terceiros — LGPD/GDPR).
-   Inter e Montserrat: SIL Open Font License, ver fontes-licenca.txt */
+   Inter: SIL Open Font License, ver fontes-licenca.txt */
 @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("inter-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("inter-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: "Montserrat"; font-style: normal; font-weight: 500; font-display: swap; src: url("montserrat-latin-500.woff2") format("woff2"); }
 
 :root {
   --verde: #005339;        /* verde da logo Granado */
@@ -41,9 +40,7 @@ h1, h2, h3 { line-height: 1.25; font-weight: 600; letter-spacing: -.01em; }
 .topo { background: var(--verde); color: #fff; }
 .topo-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 68px; }
 .marca { display: flex; align-items: center; gap: 14px; min-width: 0; color: #fff; text-decoration: none; }
-.logo { display: inline-flex; flex-direction: column; align-items: center; color: var(--ouro); font-family: "Montserrat", var(--sans); font-weight: 500; line-height: 1; }
-.logo-nome { font-size: 22px; letter-spacing: .14em; margin-right: -.14em; text-transform: uppercase; }
-.logo-cidade { font-size: 7.5px; letter-spacing: .32em; margin-right: -.32em; margin-top: 5px; text-transform: uppercase; }
+.logo { display: block; height: 35px; width: auto; }
 .marca-texto { font-size: 14px; font-weight: 500; color: rgba(255,255,255,.85); white-space: nowrap; padding-left: 14px; border-left: 1px solid rgba(189,165,95,.45); line-height: 28px; }
 .marca-logo { display: inline-flex; align-items: center; }
 .marca-logo img { display: block; height: 30px; width: auto; max-width: 200px; object-fit: contain; }
@@ -203,8 +200,7 @@ body { top: 0 !important; }
 @media (max-width: 959px) { body:has(.barra-movel) .rodape { padding-bottom: 100px; } }
 
 @media (max-width: 480px) {
-  .logo-nome { font-size: 19px; }
-  .logo-cidade { font-size: 6.5px; }
+  .logo { height: 31px; }
   .marca { gap: 10px; }
   .marca-texto { padding-left: 10px; font-size: 13px; }
   .linha-vaga { padding: 16px; }
