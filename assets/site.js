@@ -42,13 +42,29 @@
     area.addEventListener("change", filtrar);
   }
 
-  // Tradução automática PT / EN / ES (Google Tradutor). A escolha fica num cookie e vale para
-  // todas as páginas do site. Se a página já está no idioma escolhido, nada externo é carregado.
+  // Tradução automática da página inteira (Google Tradutor) para PT / EN / ES / FR / IT.
+  // - Página de vaga: abre sempre no idioma em que a vaga foi divulgada. Se o candidato escolher
+  //   outro idioma nessa vaga, a escolha vale para ela durante a visita.
+  // - Página inicial: usa o último idioma escolhido pelo candidato ou, na primeira visita, o idioma
+  //   do navegador dele.
+  // Se a página já está no idioma desejado, nada externo é carregado.
+  var IDIOMAS = ["pt", "en", "es", "fr", "it"];
   var idiomaPagina = (document.documentElement.lang || "").slice(0, 2).toLowerCase();
+  var ehVaga = /\/jobs\/[^/]+\/?(index\.html)?$/.test(location.pathname);
+  var guardar = function (onde, chave, valor) { try { window[onde].setItem(chave, valor); } catch (e) {} };
+  var ler = function (onde, chave) { try { return window[onde].getItem(chave) || ""; } catch (e) { return ""; } };
+  var chaveVaga = "idioma:" + location.pathname.replace(/index\.html$/, "");
   var lerIdioma = function () {
-    var m = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/;]*\/([a-z]{2})/i);
-    return m ? m[1].toLowerCase() : "";
+    if (ehVaga) return ler("sessionStorage", chaveVaga);
+    var pref = ler("localStorage", "idioma");
+    if (pref) return pref;
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+    nav = nav.slice(0, 2).toLowerCase();
+    return IDIOMAS.indexOf(nav) > -1 ? nav : "";
   };
+  // Idioma original da página, informado ao tradutor: na página inicial os títulos das vagas estão
+  // em vários idiomas e a detecção automática do Google erra (e não traduz nada)
+  var origem = IDIOMAS.indexOf(idiomaPagina) > -1 ? idiomaPagina : "auto";
   // O Google também grava esse cookie em caminhos de páginas específicas; grava-se a escolha em
   // todos os níveis do endereço para que uma escolha antiga nunca prevaleça sobre a nova
   var gravarIdioma = function (lang) {
@@ -59,7 +75,7 @@
       caminhos.push(acc, acc + "/");
     }
     caminhos.forEach(function (p) {
-      var valor = "googtrans=/auto/" + lang + "; path=" + p;
+      var valor = "googtrans=/" + origem + "/" + lang + "; path=" + p;
       document.cookie = valor;
       if (/\./.test(location.hostname)) document.cookie = valor + "; domain=" + location.hostname;
     });
@@ -71,7 +87,7 @@
     b.setAttribute("aria-current", String(sim));
     // o botão do topo mostra a bandeira e a sigla do idioma em uso
     var sel = document.querySelector(".idioma-sel");
-    if (sim && sel) sel.innerHTML = b.querySelector("svg").outerHTML + b.getAttribute("data-sigla");
+    if (sim && sel) sel.innerHTML = b.querySelector(".bandeiras").innerHTML + b.getAttribute("data-sigla");
   });
   var botaoIdioma = document.querySelector(".idioma-atual");
   var menuIdioma = document.getElementById("idioma-menu");
@@ -83,9 +99,37 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") abrirMenu(false);
   });
-  if (escolhido && escolhido !== idiomaPagina) {
+  // Textos fixos (títulos, botões, filtros, avisos e datas): trocados na hora pelo dicionário
+  // gerado em assets/textos.js, sem depender de serviço externo
+  var trocarRotulos = function (lang) {
+    var d = (window.TEXTOS_SITE || {})[lang];
+    if (!d) return;
+    var cada = function (sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); };
+    cada("[data-t]", function (el) { var v = d[el.getAttribute("data-t")]; if (v) el.textContent = v; });
+    cada("[data-t-ph]", function (el) { var v = d[el.getAttribute("data-t-ph")]; if (v) el.setAttribute("placeholder", v); });
+    cada("[data-copiado]", function (el) { if (d.copiado) el.setAttribute("data-copiado", d.copiado); });
+    cada("[data-data]", function (el) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(el.getAttribute("data-data") || "");
+      if (!m) return;
+      try {
+        el.textContent = new Intl.DateTimeFormat(d.locale, { dateStyle: "long", timeZone: "UTC" }).format(new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])));
+      } catch (e) {}
+    });
+    cada("[data-t-modelo]", function (el) {
+      var fixos = el.querySelectorAll(".fixo");
+      var modelo = d[el.getAttribute("data-t-modelo")];
+      if (!modelo || fixos.length < 2) return;
+      el.innerHTML = modelo.replace("{e}", fixos[0].outerHTML).replace("{a}", fixos[1].outerHTML);
+    });
+  };
+  if (escolhido && escolhido !== idiomaPagina) trocarRotulos(escolhido);
+
+  // Descritivo e título da vaga (texto livre do analista): tradução automática do Google, só nas
+  // páginas de vaga. Na página inicial os títulos ficam no idioma original de cada vaga.
+  if (ehVaga && escolhido && escolhido !== idiomaPagina) {
+    gravarIdioma(escolhido); // o Google Tradutor lê o idioma de destino deste cookie
     window.iniciarTradutor = function () {
-      new google.translate.TranslateElement({ pageLanguage: "auto", includedLanguages: "pt,en,es", autoDisplay: false }, "tradutor");
+      new google.translate.TranslateElement({ pageLanguage: origem, includedLanguages: IDIOMAS.join(","), autoDisplay: false }, "tradutor");
     };
     var s = document.createElement("script");
     s.src = "https://translate.google.com/translate_a/element.js?cb=iniciarTradutor";
@@ -100,6 +144,8 @@
       abrirMenu(false);
       var lang = bi.getAttribute("data-idioma");
       if (lang === ativo) return;
+      guardar("localStorage", "idioma", lang);
+      if (ehVaga) guardar("sessionStorage", chaveVaga, lang);
       gravarIdioma(lang);
       location.reload();
       return;
