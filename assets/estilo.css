@@ -193,9 +193,10 @@ body { top: 0 !important; }
 .nao-encontrada .botao { width: auto; }
 
 /* ---------- rodapé ---------- */
-.rodape { background: var(--fundo-2); border-top: 1px solid var(--linha); color: var(--suave); font-size: 13px; line-height: 1.55; padding: 28px 0 32px; }
-.rodape p { margin: 0 0 10px; max-width: 80ch; }
-.rodape strong { color: var(--texto); font-weight: 600; }
+.rodape { background: var(--fundo-2); border-top: 1px solid var(--linha); color: var(--suave); font-size: 11.5px; line-height: 1.5; padding: 20px 0 22px; }
+.rodape p { margin: 0 0 6px; max-width: 110ch; }
+.privacidade h2 { font-size: 12px; font-weight: 600; color: var(--texto); margin: 0 0 6px; letter-spacing: 0; }
+.privacidade { margin-bottom: 12px; }
 .rodape .direitos { margin: 0; }
 @media (max-width: 959px) { body:has(.barra-movel) .rodape { padding-bottom: 100px; } }
 
