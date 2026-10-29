@@ -43,28 +43,27 @@
   }
 
   // Tradução automática da página inteira (Google Tradutor) para PT / EN / ES / FR / IT.
-  // - Página de vaga: abre sempre no idioma em que a vaga foi divulgada. Se o candidato escolher
-  //   outro idioma nessa vaga, a escolha vale para ela durante a visita.
-  // - Página inicial: usa o último idioma escolhido pelo candidato ou, na primeira visita, o idioma
-  //   do navegador dele.
+  // Todas as páginas (inicial e vagas) abrem no idioma escolhido pelo candidato ou, se ele ainda não
+  // escolheu, no idioma do navegador dele, seja qual for o idioma em que a vaga foi divulgada.
   // Se a página já está no idioma desejado, nada externo é carregado.
   var IDIOMAS = ["pt", "en", "es", "fr", "it"];
   var idiomaPagina = (document.documentElement.lang || "").slice(0, 2).toLowerCase();
+  // idioma em que o descritivo foi escrito (detectado na geração); se não houver, o dos rótulos
+  var idiomaTexto = document.documentElement.getAttribute("data-texto") || idiomaPagina;
   var ehVaga = /\/jobs\/[^/]+\/?(index\.html)?$/.test(location.pathname);
   var guardar = function (onde, chave, valor) { try { window[onde].setItem(chave, valor); } catch (e) {} };
   var ler = function (onde, chave) { try { return window[onde].getItem(chave) || ""; } catch (e) { return ""; } };
-  var chaveVaga = "idioma:" + location.pathname.replace(/index\.html$/, "");
   var lerIdioma = function () {
-    if (ehVaga) return ler("sessionStorage", chaveVaga);
     var pref = ler("localStorage", "idioma");
     if (pref) return pref;
     var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
     nav = nav.slice(0, 2).toLowerCase();
     return IDIOMAS.indexOf(nav) > -1 ? nav : "";
   };
-  // Idioma original da página, informado ao tradutor: na página inicial os títulos das vagas estão
-  // em vários idiomas e a detecção automática do Google erra (e não traduz nada)
-  var origem = IDIOMAS.indexOf(idiomaPagina) > -1 ? idiomaPagina : "auto";
+  // Idioma de origem informado ao tradutor: o do descritivo (data-texto), que pode diferir do idioma
+  // escolhido no cadastro (ex.: vaga marcada como italiano com texto em inglês). Com o idioma errado ou
+  // com "auto", o Google não traduz nada.
+  var origem = IDIOMAS.indexOf(idiomaTexto) > -1 ? idiomaTexto : "auto";
   // O Google também grava esse cookie em caminhos de páginas específicas; grava-se a escolha em
   // todos os níveis do endereço para que uma escolha antiga nunca prevaleça sobre a nova
   var gravarIdioma = function (lang) {
@@ -127,7 +126,7 @@
 
   // Descritivo e título da vaga (texto livre do analista): tradução automática do Google, só nas
   // páginas de vaga. Na página inicial os títulos ficam no idioma original de cada vaga.
-  if (ehVaga && escolhido && escolhido !== idiomaPagina) {
+  if (ehVaga && escolhido && escolhido !== idiomaTexto) {
     gravarIdioma(escolhido); // o Google Tradutor lê o idioma de destino deste cookie
     window.iniciarTradutor = function () {
       new google.translate.TranslateElement({ pageLanguage: origem, includedLanguages: IDIOMAS.join(","), autoDisplay: false }, "tradutor");
@@ -146,7 +145,6 @@
       var lang = bi.getAttribute("data-idioma");
       if (lang === ativo) return;
       guardar("localStorage", "idioma", lang);
-      if (ehVaga) guardar("sessionStorage", chaveVaga, lang);
       gravarIdioma(lang);
       location.reload();
       return;
