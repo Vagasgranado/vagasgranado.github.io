@@ -208,3 +208,7 @@ body { top: 0 !important; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 @media print { .topo, .lateral .compartilhar, .barra-movel, .rodape { display: none; } }
+/* igualdade de oportunidades (frase-padrão em todas as vagas) */
+.igualdade { background: var(--verde-claro); border-radius: var(--raio); padding: 16px 18px; }
+.igualdade h2 { font-size: 15px; margin: 0 0 4px; color: var(--verde); }
+.igualdade p { margin: 0; font-size: 14px; color: var(--texto); }
