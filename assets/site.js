@@ -126,7 +126,43 @@
 
   // Descritivo e título da vaga (texto livre do analista): tradução automática do Google, só nas
   // páginas de vaga. Na página inicial os títulos ficam no idioma original de cada vaga.
+  // Proteção contra tradução ofensiva: se o Google transformar um trecho em palavrão ou termo
+  // pejorativo (ex.: "Vagas" → "vagabundos"), aquele trecho volta ao texto original e não é
+  // traduzido de novo. Só vale para palavras que não estavam no texto original.
+  var OFENSIVAS = {
+    pt: /\b(vagabund\w*|vadi[ao]s?|putas?|puto|porra|merda|caralh\w*|bosta|idiotas?|imbecis|imbecil|ot[aá]ri[ao]s?|viad\w*|cuz[aã]o|safad\w*|prostitut\w*|piranhas?|desgra[cç]ad\w*|lixo)\b/i,
+    en: /\b(bums?|tramps?|vagrants?|vagabonds?|sluts?|whores?|bitch\w*|shit\w*|fuck\w*|crap|idiots?|stupid|morons?|bastards?|damn\w*|assholes?|dicks?|losers?|scum)\b/i,
+    es: /\b(vagabund\w*|holgazan\w*|putas?|puto|mierda|cabr[oó]n\w*|pendej\w*|gilipollas|idiotas?|imb[eé]cil\w*|est[uú]pid\w*|co[nñ]o|joder|zorras?|basura)\b/i,
+    fr: /\b(clochards?|vagabonds?|salopes?|putains?|putes?|merde|connards?|connasses?|d[eé]biles?|encul[eé]\w*|bordel|idiots?|cr[eé]tins?|ordures?)\b/i,
+    it: /\b(vagabond\w*|barbon\w*|fannullon\w*|puttan\w*|merda|cazz\w*|stronz\w*|idiot\w*|cretin\w*|coglion\w*|troi[ae]|schifos\w*)\b/i,
+  };
+  var vigiarOfensas = function (lang) {
+    var proibidas = OFENSIVAS[lang];
+    var area = document.getElementById("conteudo");
+    if (!proibidas || !area || !window.MutationObserver) return;
+    var blocos = [];
+    Array.prototype.forEach.call(area.querySelectorAll("h1, h2, h3, p, li, dd, .etiqueta"), function (el) {
+      blocos.push({ el: el, html: el.innerHTML, texto: el.textContent });
+    });
+    var espera;
+    var conferir = function () {
+      blocos.forEach(function (b) {
+        if (b.el.classList.contains("notranslate")) return;
+        if (proibidas.test(b.el.textContent) && !proibidas.test(b.texto)) {
+          b.el.classList.add("notranslate");
+          b.el.setAttribute("translate", "no");
+          b.el.innerHTML = b.html;
+        }
+      });
+    };
+    new MutationObserver(function () {
+      clearTimeout(espera);
+      espera = setTimeout(conferir, 150);
+    }).observe(area, { subtree: true, childList: true, characterData: true });
+  };
+
   if (ehVaga && escolhido && escolhido !== idiomaTexto) {
+    vigiarOfensas(escolhido);
     gravarIdioma(escolhido); // o Google Tradutor lê o idioma de destino deste cookie
     window.iniciarTradutor = function () {
       new google.translate.TranslateElement({ pageLanguage: origem, includedLanguages: IDIOMAS.join(","), autoDisplay: false }, "tradutor");
